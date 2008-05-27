@@ -6,6 +6,7 @@ use strict;
 
 BEGIN {
 	push @INC,"perl";
+	push @INC,"build/perl";
 	push @INC,"NetPacket-0.04";
 };
 

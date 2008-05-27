@@ -9,6 +9,7 @@ import time
 from socket import AF_INET, AF_INET6, inet_ntoa
 
 sys.path.append('python')
+sys.path.append('build/python')
 import nfqueue
 
 sys.path.append('dpkt-1.6')
