@@ -1,0 +1,29 @@
+
+Prerequisites
+-------------
+
+libnetfilter-queue
+swig
+python development files
+perl development files
+
+Compilation
+-----------
+
+A Makefile has been written to wrap cmake call
+
+Running 'make' will:
+
+ - Create a subdirectory build/
+ - Go in that directory and call cmake ..
+ - Call make to build the librairies
+
+If the pkg-config files for libnetfilter-queue are in a non-standard
+directory, export the following variable before calling make::
+
+ export PKG_CONFIG_PATH=/path/to/prefix/lib/pkgconfig/
+
+To remove the build files, run 'make clean' or just remove the build
+directory.
+
+
