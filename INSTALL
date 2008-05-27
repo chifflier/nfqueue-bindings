@@ -2,6 +2,7 @@
 Prerequisites
 -------------
 
+cmake
 libnetfilter-queue
 swig
 python development files
@@ -26,4 +27,10 @@ directory, export the following variable before calling make::
 To remove the build files, run 'make clean' or just remove the build
 directory.
 
+Installation
+------------
+
+For the moment, no installation helper is provided. You must use the
+bindings in the build directory, or install them manually (work in
+progress).
 
