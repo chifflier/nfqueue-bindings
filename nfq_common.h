@@ -17,4 +17,10 @@ int queue_create_queue(struct queue *self, int queue_num);
 
 int queue_try_run(struct queue *self);
 
+int payload_get_nfmark(struct payload *self);
+
+int payload_get_indev(struct payload *self);
+
+int payload_get_outdev(struct payload *self);
+
 #endif /* __NFQ_COMMON__ */

@@ -33,6 +33,10 @@
 };
 
 %extend payload {
+        int get_nfmark();
+        int get_indev();
+        int get_outdev();
+
 unsigned int get_length(void) {
         return self->len;
 }

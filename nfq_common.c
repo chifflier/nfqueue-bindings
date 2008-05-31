@@ -85,3 +85,19 @@ int queue_try_run(struct queue *self)
         printf("exiting try_run\n");
         return 0;
 }
+
+int payload_get_nfmark(struct payload *self)
+{
+        return nfq_get_nfmark(self->nfad);
+}
+
+int payload_get_indev(struct payload *self)
+{
+        return nfq_get_indev(self->nfad);
+}
+
+int payload_get_outdev(struct payload *self)
+{
+        return nfq_get_outdev(self->nfad);
+}
+

@@ -24,7 +24,6 @@ int  swig_nfq_callback(struct nfq_q_handle *qh, struct nfgenmsg *nfmsg,
 {
         int id = 0;
         struct nfqnl_msg_packet_hdr *ph;
-        u_int32_t mark,ifi;
         int ret;
         char *payload_data;
         int payload_len;
@@ -36,18 +35,6 @@ int  swig_nfq_callback(struct nfq_q_handle *qh, struct nfgenmsg *nfmsg,
                 printf("hw_protocol=0x%04x hook=%u id=%u ",
                                 ntohs(ph->hw_protocol), ph->hook, id);
         }
-
-        mark = nfq_get_nfmark(nfad);
-        if (mark)
-                printf("mark=%u ", mark);
-
-        ifi = nfq_get_indev(nfad);
-        if (ifi)
-                printf("indev=%u ", ifi);
-
-        ifi = nfq_get_outdev(nfad);
-        if (ifi)
-                printf("outdev=%u ", ifi);
 
         ret = nfq_get_payload(nfad, &payload_data);
         if (ret >= 0)
