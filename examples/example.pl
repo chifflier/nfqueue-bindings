@@ -35,7 +35,8 @@ sub cb()
 
 		my $ip_obj = NetPacket::IP->decode($payload->get_data());
 		print $ip_obj, "\n";
-		print("$ip_obj->{src_ip}:$ip_obj->{dest_ip} $ip_obj->{proto}\n");
+		print("$ip_obj->{src_ip} => $ip_obj->{dest_ip} $ip_obj->{proto}\n");
+		print "Id: " . $payload->swig_id_get() . "\n";
 
 		if($ip_obj->{proto} == IP_PROTO_TCP) {
 			# decode the TCP header
@@ -44,6 +45,8 @@ sub cb()
 			print "TCP src_port: $tcp_obj->{src_port}\n";
 			print "TCP dst_port: $tcp_obj->{dest_port}\n";
 		}
+
+		$payload->set_decision($nfqueue::NF_DROP);
 	}
 }
 

@@ -101,6 +101,8 @@ int  swig_nfq_callback(struct nfq_q_handle *qh, struct nfgenmsg *nfmsg,
                 p = malloc(sizeof(struct payload));
                 p->data = payload_data;
                 p->len = payload_len;
+                p->id = id;
+                p->qh = qh;
                 payload_obj = SWIG_NewPointerObj((void*) p, SWIGTYPE_p_payload, 1);
                 arglist = Py_BuildValue("(i,O)",42,payload_obj);
                 /*printf("will call python object\n");*/

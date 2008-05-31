@@ -110,6 +110,8 @@ int  swig_nfq_callback(struct nfq_q_handle *qh, struct nfgenmsg *nfmsg,
                 p = malloc(sizeof(struct payload));
                 p->data = payload_data;
                 p->len = payload_len;
+                p->id = id;
+                p->qh = qh;
                 payload_obj = sv_newmortal();
                 SWIG_MakePtr(payload_obj, (void*) p, SWIGTYPE_p_payload, 0);
                 XPUSHs(payload_obj);

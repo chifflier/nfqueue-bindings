@@ -14,6 +14,8 @@ struct queue {
 struct payload {
         char *data;
         unsigned int len;
+	int id;
+        struct nfq_q_handle *qh;
 };
 
 #endif /* __NFQ_H__ */

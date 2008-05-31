@@ -27,6 +27,7 @@ def cb(i,payload):
 	if pkt.p == ip.IP_PROTO_TCP:
 	 	print "  sport: %s" % pkt.tcp.sport
 	 	print "  dport: %s" % pkt.tcp.dport
+        payload.set_decision(nfqueue.NF_DROP)
 
 	sys.stdout.flush()
 	return 1
