@@ -37,7 +37,7 @@ unsigned int get_length(void) {
         return self->len;
 }
 
-int set_decision(int d) {
+int set_verdict(int d) {
         return nfq_set_verdict(self->qh, self->id, d, 0, NULL);
 }
 };
