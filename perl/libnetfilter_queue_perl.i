@@ -52,43 +52,9 @@ int  swig_nfq_callback(struct nfq_q_handle *qh, struct nfgenmsg *nfmsg,
         ret = nfq_get_payload(nfad, &payload_data);
         if (ret >= 0)
                 printf("payload_len=%d ", ret);
+        payload_len = ret;
 
         fputc('\n', stdout);
-
-        {
-                struct iphdr * hdr;
-                payload_len = ret;
-                char *saddr, *daddr;
-
-                hdr = (struct iphdr *)payload_data;
-
-                printf("payload_version=%d ", hdr->version);
-
-                printf("protocol=%d ", hdr->protocol);
-
-                saddr = (char*)&hdr->saddr;
-                if (saddr) {
-                        printf("saddr=%hhu.%hhu.%hhu.%hhu ",
-                        saddr[0],
-                        saddr[1],
-                        saddr[2],
-                        saddr[3]
-                        );
-                }
-                daddr = (char*)&hdr->daddr;
-                if (daddr) {
-                        printf("daddr=%hhu.%hhu.%hhu.%hhu ",
-                        daddr[0],
-                        daddr[1],
-                        daddr[2],
-                        daddr[3]
-                        );
-                }
-
-
-
-                fputc('\n', stdout);
-        }
 
         gettimeofday(&tv1, NULL);
 
@@ -112,6 +78,7 @@ int  swig_nfq_callback(struct nfq_q_handle *qh, struct nfgenmsg *nfmsg,
                 p->len = payload_len;
                 p->id = id;
                 p->qh = qh;
+                p->nfad = nfad;
                 payload_obj = sv_newmortal();
                 SWIG_MakePtr(payload_obj, (void*) p, SWIGTYPE_p_payload, 0);
                 XPUSHs(payload_obj);

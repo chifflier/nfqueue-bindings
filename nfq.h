@@ -16,6 +16,7 @@ struct payload {
         unsigned int len;
 	int id;
         struct nfq_q_handle *qh;
+        struct nfq_data *nfad;
 };
 
 #endif /* __NFQ_H__ */
