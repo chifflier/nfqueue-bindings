@@ -56,13 +56,13 @@ sub cb
 			# decode the TCP header
 			my $tcp_obj = NetPacket::TCP->decode($ip_obj->{data});
 
-			if ($tcp_obj->{flags} == 2) { # SYN
+			if ($tcp_obj->{flags} & NetPacket::TCP::SYN) {
 				print("$ip_obj->{src_ip} => $ip_obj->{dest_ip} $ip_obj->{proto}\n");
 				print "TCP src_port: $tcp_obj->{src_port}\n";
 				print "TCP dst_port: $tcp_obj->{dest_port}\n";
 				print "TCP flags   : $tcp_obj->{flags}\n";
 			}
-			elsif ($tcp_obj->{flags} == 24) { # PSH
+			elsif ($tcp_obj->{flags} & NetPacket::TCP::PSH) {
 				print "TCP data:\n";
 				print "*" x 50 . "\n";
 				print $tcp_obj->{data};
