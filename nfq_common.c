@@ -78,7 +78,6 @@ int queue_try_run(struct queue *self)
         fd = nfnl_fd(nh);
 
         while ((rv = recv(fd, buf, sizeof(buf), 0)) && rv >= 0) {
-                printf("pkt received\n");
                 nfq_handle_packet(self->_h, buf, rv);
         }
 

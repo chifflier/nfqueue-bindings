@@ -32,16 +32,10 @@ int  swig_nfq_callback(struct nfq_q_handle *qh, struct nfgenmsg *nfmsg,
         ph = nfq_get_msg_packet_hdr(nfad);
         if (ph){
                 id = ntohl(ph->packet_id);
-                printf("hw_protocol=0x%04x hook=%u id=%u ",
-                                ntohs(ph->hw_protocol), ph->hook, id);
         }
 
         ret = nfq_get_payload(nfad, &payload_data);
-        if (ret >= 0)
-                printf("payload_len=%d ", ret);
         payload_len = ret;
-
-        fputc('\n', stdout);
 
         gettimeofday(&tv1, NULL);
 
