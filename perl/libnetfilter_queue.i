@@ -44,6 +44,10 @@ unsigned int get_length(void) {
 int set_verdict(int d) {
         return nfq_set_verdict(self->qh, self->id, d, 0, NULL);
 }
+
+int set_verdict_mark(int d, int mark) {
+        return nfq_set_verdict_mark(self->qh, self->id, d, mark, 0, NULL);
+}
 };
 
 #define NF_DROP   0
