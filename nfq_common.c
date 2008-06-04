@@ -53,26 +53,28 @@ int queue_create_queue(struct queue *self, int queue_num)
         return 0;
 }
 
+int queue_set_queue_maxlen(struct queue *self, int maxlen)
+{
+        int ret;
+        ret = nfq_set_queue_maxlen(self->_qh, maxlen);
+        if (ret < 0) {
+                raise_swig_error("error during nfq_set_queue_maxlen()\n");
+        }
+        return ret;
+}
+
 int queue_try_run(struct queue *self)
 {
         int fd;
         int rv;
         char buf[4096];
         struct nfnl_handle *nh;
-        u_int32_t qlen = 1024;
 
         printf("setting copy_packet mode\n");
         if (nfq_set_mode(self->_qh, NFQNL_COPY_PACKET, 0xffff) < 0) {
                 raise_swig_error("can't set packet_copy mode\n");
                 exit(1);
         }
-
-        if (nfq_set_queue_maxlen(self->_qh, qlen) < 0)
-        {
-                raise_swig_error("error during nfq_set_queue_maxlen()\n");
-                // exit(1);
-        }
-
 
         nh = nfq_nfnlh(self->_h);
         fd = nfnl_fd(nh);
