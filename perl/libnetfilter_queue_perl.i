@@ -29,6 +29,11 @@ int  swig_nfq_callback(struct nfq_q_handle *qh, struct nfgenmsg *nfmsg,
         int payload_len;
         struct timeval tv1, tv2, diff;
 
+        if (data == NULL) {
+                fprintf(stderr,"No callback set !\n");
+                return -1;
+        }
+
         ph = nfq_get_msg_packet_hdr(nfad);
         if (ph){
                 id = ntohl(ph->packet_id);

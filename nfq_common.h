@@ -17,6 +17,8 @@ int queue_set_queue_maxlen(struct queue *self, int maxlen);
 
 int queue_create_queue(struct queue *self, int queue_num);
 
+int queue_fast_open(struct queue *self, int queue_num);
+
 int queue_try_run(struct queue *self);
 
 int payload_get_nfmark(struct payload *self);

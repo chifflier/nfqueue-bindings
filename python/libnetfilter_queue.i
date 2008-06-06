@@ -29,6 +29,7 @@
         int bind();
         int unbind();
         int create_queue(int);
+        int fast_open(int);
         int set_queue_maxlen(int);
         int try_run();
 };

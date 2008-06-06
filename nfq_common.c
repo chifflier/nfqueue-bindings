@@ -11,7 +11,6 @@
 int queue_open(struct queue *self)
 {
         self->_h = nfq_open();
-        self->_cb = NULL;
         self->_qh = NULL;
         return (self->_h != NULL);
 }
@@ -51,6 +50,32 @@ int queue_create_queue(struct queue *self, int queue_num)
                return -1;
         }
         return 0;
+}
+
+int queue_fast_open(struct queue *self, int queue_num)
+{
+	int ret;
+
+	ret = queue_open(self);
+	if (!ret)
+		return -1;
+
+	queue_unbind(self);
+	ret = queue_bind(self);
+	if (ret < 0) {
+		queue_close(self);
+		return -1;
+	}
+
+	ret = queue_create_queue(self,queue_num);
+	if (ret < 0) {
+		queue_unbind(self);
+		queue_close(self);
+		return -1;
+	}
+
+	return 0;
+
 }
 
 int queue_set_queue_maxlen(struct queue *self, int maxlen)
