@@ -43,6 +43,11 @@ int queue_unbind(struct queue *self)
 
 int queue_create_queue(struct queue *self, int queue_num)
 {
+        if (self->_cb == NULL) {
+               raise_swig_error("Error: no callback set"); 
+               return -1;
+        }
+
         self->_qh = nfq_create_queue(self->_h, 0, &swig_nfq_callback, (void*)self->_cb);
         /*printf("callback argument: %p\n",(void*)self->_cb);*/
         if (self->_qh == NULL) {
@@ -55,6 +60,11 @@ int queue_create_queue(struct queue *self, int queue_num)
 int queue_fast_open(struct queue *self, int queue_num)
 {
 	int ret;
+
+        if (self->_cb == NULL) {
+               raise_swig_error("Error: no callback set"); 
+               return -1;
+        }
 
 	ret = queue_open(self);
 	if (!ret)
