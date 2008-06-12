@@ -15,6 +15,9 @@ IF (NOT LIBNFQ_INCLUDE_DIR)
   MESSAGE(FATAL_ERROR "libnetfilter_queue was not found")
 ENDIF (NOT LIBNFQ_INCLUDE_DIR)
 
+SET( LIB_SUFFIX "" CACHE STRING "The library directory suffix. 32bit empty string, 64 for 64bit." )
+SET( LIB_INSTALL_DIR  "${CMAKE_INSTALL_PREFIX}/lib${LIB_SUFFIX}" )
+
 ADD_SUBDIRECTORY(python)
 ADD_SUBDIRECTORY(perl)
 
