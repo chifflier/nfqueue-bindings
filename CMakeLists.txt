@@ -1,5 +1,7 @@
 cmake_minimum_required(VERSION 2.4)
 
+SET(VERSION "0.1")
+
 STRING(COMPARE EQUAL "${CMAKE_SOURCE_DIR}" "${CMAKE_BINARY_DIR}" insource)
 IF(insource)
   MESSAGE(FATAL_ERROR "nfqueue-bindings requires an out of source build. Please create a separate build directory and run 'cmake path_to_nfqueue_bindings [options]' there.")
@@ -21,4 +23,5 @@ SET( LIB_INSTALL_DIR  "${CMAKE_INSTALL_PREFIX}/lib${LIB_SUFFIX}" )
 ADD_SUBDIRECTORY(python)
 ADD_SUBDIRECTORY(perl)
 
+CONFIGURE_FILE(${CMAKE_CURRENT_SOURCE_DIR}/nfq_version.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/nfq_version.h)
 

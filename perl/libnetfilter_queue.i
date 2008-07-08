@@ -66,3 +66,5 @@ int set_verdict_mark_modified(int d, int mark, char *new_payload, int new_len) {
 
 %include "nfq.h"
 
+const char * nfq_bindings_version(void);
+

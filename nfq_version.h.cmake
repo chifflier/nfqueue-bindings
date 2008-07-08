@@ -1,0 +1,1 @@
+#define NFQ_BINDINGS_VERSION "${VERSION}"

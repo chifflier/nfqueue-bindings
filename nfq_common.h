@@ -5,6 +5,8 @@ extern void raise_swig_error(const char *errstr);
 extern int  swig_nfq_callback(struct nfq_q_handle *qh, struct nfgenmsg *nfmsg,
                        struct nfq_data *nfad, void *data);
 
+const char * nfq_bindings_version(void);
+
 int queue_open(struct queue *self);
 
 void queue_close(struct queue *self);

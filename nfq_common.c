@@ -8,6 +8,13 @@
 #include "nfq.h"
 #include "nfq_common.h"
 
+#include "nfq_version.h"
+
+const char * nfq_bindings_version(void)
+{
+        return NFQ_BINDINGS_VERSION;
+}
+
 int queue_open(struct queue *self)
 {
         self->_h = nfq_open();
