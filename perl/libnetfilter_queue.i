@@ -48,7 +48,7 @@ int set_verdict(int d) {
 }
 
 int set_verdict_mark(int d, int mark) {
-        return nfq_set_verdict_mark(self->qh, self->id, d, mark, 0, NULL);
+        return nfq_set_verdict_mark(self->qh, self->id, d, htonl(mark), 0, NULL);
 }
 
 int set_verdict_modified(int d, char *new_payload, int new_len) {
@@ -56,7 +56,7 @@ int set_verdict_modified(int d, char *new_payload, int new_len) {
 }
 
 int set_verdict_mark_modified(int d, int mark, char *new_payload, int new_len) {
-        return nfq_set_verdict_mark(self->qh, self->id, d, mark, new_len, new_payload);
+        return nfq_set_verdict_mark(self->qh, self->id, d, htonl(mark), new_len, new_payload);
 }
 
 };
