@@ -61,6 +61,7 @@ int  swig_nfq_callback(struct nfq_q_handle *qh, struct nfgenmsg *nfmsg,
                 /*printf("will call python object\n");*/
                 result = PyEval_CallObject(func,arglist);
                 /*printf("result: %p\n", result);*/
+                free(p);
                 Py_DECREF(arglist);
                 if (result) {
                         Py_DECREF(result);
