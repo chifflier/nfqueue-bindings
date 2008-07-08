@@ -66,32 +66,32 @@ int queue_create_queue(struct queue *self, int queue_num)
 
 int queue_fast_open(struct queue *self, int queue_num)
 {
-	int ret;
+        int ret;
 
         if (self->_cb == NULL) {
                raise_swig_error("Error: no callback set"); 
                return -1;
         }
 
-	ret = queue_open(self);
-	if (!ret)
-		return -1;
+        ret = queue_open(self);
+        if (!ret)
+                return -1;
 
-	queue_unbind(self);
-	ret = queue_bind(self);
-	if (ret < 0) {
-		queue_close(self);
-		return -1;
-	}
+        queue_unbind(self);
+        ret = queue_bind(self);
+        if (ret < 0) {
+                queue_close(self);
+                return -1;
+        }
 
-	ret = queue_create_queue(self,queue_num);
-	if (ret < 0) {
-		queue_unbind(self);
-		queue_close(self);
-		return -1;
-	}
+        ret = queue_create_queue(self,queue_num);
+        if (ret < 0) {
+                queue_unbind(self);
+                queue_close(self);
+                return -1;
+        }
 
-	return 0;
+        return 0;
 
 }
 
