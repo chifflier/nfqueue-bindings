@@ -72,6 +72,7 @@ int  swig_nfq_callback(struct nfq_q_handle *qh, struct nfgenmsg *nfmsg,
                 PUTBACK;
 
                 call_sv(func, G_DISCARD);
+                free(p);
 
                 FREETMPS ;
                 LEAVE ;
@@ -105,7 +106,7 @@ int set_callback(void *perl_cb)
 };
 
 %typemap (out) const char* get_data {
-        $result = newSVpvn($1,arg1->len); // blah
+        $result = sv_2mortal(newSVpvn($1,arg1->len)); // blah
         argvi++;
 }
 
