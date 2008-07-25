@@ -30,7 +30,12 @@ directory.
 Installation
 ------------
 
-For the moment, no installation helper is provided. You must use the
-bindings in the build directory, or install them manually (work in
-progress).
+Edit the toplevel makefile, and set the PREFIX variable::
+
+ PREFIX = /usr/local
+
+or, alternatively, set the contents of the value when running make::
+
+ make
+ make PREFIX=/usr/local install
 
