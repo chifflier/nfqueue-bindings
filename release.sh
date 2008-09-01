@@ -35,4 +35,5 @@ echo "$SUM"
 echo ""
 echo "Don't forget to run:"
 echo "git tag -s nfqueue-bindings-$VERSION"
+echo "git push --tags"
 
