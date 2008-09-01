@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 2.4)
 
-SET(VERSION "0.1")
+SET(VERSION "0.2")
 
 STRING(COMPARE EQUAL "${CMAKE_SOURCE_DIR}" "${CMAKE_BINARY_DIR}" insource)
 IF(insource)
