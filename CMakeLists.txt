@@ -7,6 +7,11 @@ IF(insource)
   MESSAGE(FATAL_ERROR "nfqueue-bindings requires an out of source build. Please create a separate build directory and run 'cmake path_to_nfqueue_bindings [options]' there.")
 ENDIF(insource)
 
+# cmake --help-policy CMP0003
+IF(COMMAND cmake_policy)
+  cmake_policy(SET CMP0003 NEW)
+ENDIF(COMMAND cmake_policy)
+
 FIND_PACKAGE(SWIG REQUIRED)
 INCLUDE(${SWIG_USE_FILE})
 
