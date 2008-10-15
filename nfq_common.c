@@ -55,7 +55,7 @@ int queue_create_queue(struct queue *self, int queue_num)
                return -1;
         }
 
-        self->_qh = nfq_create_queue(self->_h, 0, &swig_nfq_callback, (void*)self->_cb);
+        self->_qh = nfq_create_queue(self->_h, queue_num, &swig_nfq_callback, (void*)self->_cb);
         /*printf("callback argument: %p\n",(void*)self->_cb);*/
         if (self->_qh == NULL) {
                raise_swig_error("error during nfq_create_queue()"); 
