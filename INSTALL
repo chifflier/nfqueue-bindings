@@ -8,6 +8,9 @@ swig
 python development files
 perl development files
 
+You'll also need a fairly recent kernel (>= 2.6.18 to work, but some
+functions such as set_qmax_len require a kernel >= 2.6.20).
+
 Compilation
 -----------
 

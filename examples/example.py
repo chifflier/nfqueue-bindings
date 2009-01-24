@@ -52,6 +52,8 @@ q.set_callback(cb)
 print "creating queue"
 q.create_queue(0)
 
+q.set_queue_maxlen(5000)
+
 print "trying to run"
 try:
 	q.try_run()
