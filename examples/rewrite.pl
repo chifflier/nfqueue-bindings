@@ -14,13 +14,14 @@ use nfqueue;
 
 use NetPacket::IP qw(IP_PROTO_TCP);
 use NetPacket::TCP;
+use Socket qw(AF_INET AF_INET6);
 
 my $q;
 
 sub cleanup()
 {
 	print "unbind\n";
-	$q->unbind();
+	$q->unbind(AF_INET);
 	print "close\n";
 	$q->close();
 }
@@ -47,10 +48,11 @@ sub cb()
 			print "TCP flags   : $tcp_obj->{flags}\n";
 			print "TCP data    : $tcp_obj->{data}\n";
 
-			if (length($tcp_obj->{data})) {
+			if ($tcp_obj->{flags} & NetPacket::TCP::PSH &&
+					length($tcp_obj->{data})) {
 				print "data is defined\n";
 				#$tcp_obj->{data} = 'gruik';
-				$tcp_obj->{data} =~ s/GET.*/GET \//m;
+				$tcp_obj->{data} =~ s/love/hate/m;
 				print "**********\n";
 				print $tcp_obj->{data};
 				print "**********\n";
@@ -60,6 +62,8 @@ sub cb()
                         #$ip_obj->{src_ip} = "1.2.3.4";
                         #$tcp_obj->{src_port} = 42;
 			#$ip_obj->{dest_ip} = "213.186.33.19";
+			$tcp_obj->{checksum} = 0;
+			$ip_obj->{checksum} = 0;
                         $ip_obj->{data} = $tcp_obj->encode($ip_obj);
                         my $modified_payload = $ip_obj->encode();
                         my $ip2 = NetPacket::IP->decode($modified_payload);
@@ -73,10 +77,13 @@ sub cb()
 
                         my $ret = $payload->set_verdict_modified($nfqueue::NF_ACCEPT,$modified_payload,length($modified_payload));
 			print "ret: $ret\n";
+			return;
 		}
 
-		$payload->set_verdict($nfqueue::NF_DROP);
+		$payload->set_verdict($nfqueue::NF_ACCEPT);
+		return;
 	}
+	$payload->set_verdict($nfqueue::NF_ACCEPT);
 }
 
 
@@ -85,7 +92,7 @@ $q = new nfqueue::queue();
 print "open\n";
 $q->open();
 print "bind\n";
-$q->bind();
+$q->bind(AF_INET);
 
 $SIG{INT} = "cleanup";
 

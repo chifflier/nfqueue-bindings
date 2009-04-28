@@ -30,18 +30,18 @@ void queue_close(struct queue *self)
         self->_cb = NULL;
 }
 
-int queue_bind(struct queue *self)
+int queue_bind(struct queue *self, int af_family)
 {
-        if (nfq_bind_pf(self->_h, AF_INET)) {
+        if (nfq_bind_pf(self->_h, af_family)) {
                 raise_swig_error("error during nfq_bind_pf()"); 
                 return -1;
         }
         return 0;
 }
 
-int queue_unbind(struct queue *self)
+int queue_unbind(struct queue *self, int af_family)
 {
-        if (nfq_unbind_pf(self->_h, AF_INET)) {
+        if (nfq_unbind_pf(self->_h, af_family)) {
                 raise_swig_error("error during nfq_unbind_pf()"); 
                 return -1;
         }
@@ -64,7 +64,7 @@ int queue_create_queue(struct queue *self, int queue_num)
         return 0;
 }
 
-int queue_fast_open(struct queue *self, int queue_num)
+int queue_fast_open(struct queue *self, int queue_num, int af_family)
 {
         int ret;
 
@@ -77,8 +77,8 @@ int queue_fast_open(struct queue *self, int queue_num)
         if (!ret)
                 return -1;
 
-        queue_unbind(self);
-        ret = queue_bind(self);
+        queue_unbind(self, af_family);
+        ret = queue_bind(self, af_family);
         if (ret < 0) {
                 queue_close(self);
                 return -1;
@@ -86,7 +86,7 @@ int queue_fast_open(struct queue *self, int queue_num)
 
         ret = queue_create_queue(self,queue_num);
         if (ret < 0) {
-                queue_unbind(self);
+                queue_unbind(self, af_family);
                 queue_close(self);
                 return -1;
         }

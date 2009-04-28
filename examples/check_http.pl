@@ -14,6 +14,7 @@ use nfqueue;
 
 use NetPacket::IP qw(IP_PROTO_TCP);
 use NetPacket::TCP;
+use Socket qw(AF_INET AF_INET6);
 
 my $debug = 1;
 my $q;
@@ -21,7 +22,7 @@ my $q;
 sub cleanup()
 {
 	print "unbind\n";
-	$q->unbind();
+	$q->unbind(AF_INET);
 	print "close\n";
 	$q->close();
 }
@@ -84,7 +85,7 @@ $q = new nfqueue::queue();
 print "open\n";
 $q->open();
 print "bind\n";
-$q->bind();
+$q->bind(AF_INET);
 
 $SIG{INT} = "cleanup";
 

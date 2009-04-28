@@ -35,8 +35,8 @@ q = nfqueue.queue()
 
 q.open()
 
-q.unbind()
-if q.bind() != 0:
+q.unbind(AF_INET)
+if q.bind(AF_INET) != 0:
     q.close()
     raise RuntimeError("Could not bind to nfqueue")
 
@@ -52,6 +52,6 @@ except KeyboardInterrupt, e:
     pass
 
 
-q.unbind()
+q.unbind(AF_INET)
 q.close()
 

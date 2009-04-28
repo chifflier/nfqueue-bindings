@@ -58,7 +58,7 @@ q = nfqueue.queue()
 
 q.set_callback(cb)
 
-ret = q.fast_open(0)
+ret = q.fast_open(0, AF_INET)
 if ret != 0:
 	print "could not open queue %d" % 0
 	sys.exit(-1)
@@ -69,6 +69,6 @@ except KeyboardInterrupt, e:
 	print "interrupted"
 
 
-q.unbind()
+q.unbind(AF_INET)
 q.close()
 

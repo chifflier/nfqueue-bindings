@@ -31,7 +31,9 @@ def cb(i,payload):
                         print "PUSH *****"
                         print pkt2.tcp.data
 			old_len = len(pkt2.tcp.data)
-                        pkt2.tcp.data = "GET /\r\n"
+                        #pkt2.tcp.data = "GET /\r\n"
+                        pkt2.tcp.data = str(pkt2.tcp.data).replace('love','hate')
+                        print pkt2.tcp.data
 			pkt2.len = pkt2.len - old_len + len(pkt2.tcp.data)
                         pkt2.tcp.sum = 0
                         pkt2.sum = 0
@@ -51,7 +53,7 @@ print "open"
 q.open()
 
 print "bind"
-q.bind();
+q.bind(AF_INET);
 
 #print "setting callback (should fail, wrong arg type)"
 #try:
@@ -73,7 +75,7 @@ except KeyboardInterrupt, e:
 
 
 print "unbind"
-q.unbind()
+q.unbind(AF_INET)
 
 print "close"
 q.close()
