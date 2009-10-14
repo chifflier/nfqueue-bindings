@@ -107,6 +107,15 @@ int queue_set_queue_maxlen(struct queue *self, int maxlen)
         return ret;
 }
 
+int queue_get_fd(struct queue *self)
+{
+        if (self->_h == NULL) {
+                throw_exception("queue is not open");
+                return -1;
+        }
+        return nfq_fd(self->_h);
+}
+
 int queue_try_run(struct queue *self)
 {
         int fd;

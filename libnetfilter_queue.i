@@ -43,6 +43,7 @@
         int fast_open(int, int);
         int set_queue_maxlen(int);
         int try_run();
+        int get_fd();
 };
 
 %extend payload {
