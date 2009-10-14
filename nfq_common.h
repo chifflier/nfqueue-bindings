@@ -1,7 +1,6 @@
 #ifndef __NFQ_COMMON__
 #define __NFQ_COMMON__
 
-extern void raise_swig_error(const char *errstr);
 extern int  swig_nfq_callback(struct nfq_q_handle *qh, struct nfgenmsg *nfmsg,
                        struct nfq_data *nfad, void *data);
 

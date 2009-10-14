@@ -84,11 +84,6 @@ int  swig_nfq_callback(struct nfq_q_handle *qh, struct nfgenmsg *nfmsg,
         return nfq_set_verdict(qh, id, NF_ACCEPT, 0, NULL);
 }
 
-void raise_swig_error(const char *errstr)
-{
-        fprintf(stderr,"ERROR %s\n",errstr);
-        SWIG_Error(SWIG_RuntimeError, errstr); 
-}
 %}
 
 %extend queue {

@@ -5,6 +5,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "exception.h"
+
 #include "nfq.h"
 #include "nfq_common.h"
 
@@ -33,7 +35,7 @@ void queue_close(struct queue *self)
 int queue_bind(struct queue *self, int af_family)
 {
         if (nfq_bind_pf(self->_h, af_family)) {
-                raise_swig_error("error during nfq_bind_pf()"); 
+                throw_exception("error during nfq_bind_pf()");
                 return -1;
         }
         return 0;
@@ -42,7 +44,7 @@ int queue_bind(struct queue *self, int af_family)
 int queue_unbind(struct queue *self, int af_family)
 {
         if (nfq_unbind_pf(self->_h, af_family)) {
-                raise_swig_error("error during nfq_unbind_pf()"); 
+                throw_exception("error during nfq_unbind_pf()");
                 return -1;
         }
         return 0;
@@ -51,14 +53,14 @@ int queue_unbind(struct queue *self, int af_family)
 int queue_create_queue(struct queue *self, int queue_num)
 {
         if (self->_cb == NULL) {
-               raise_swig_error("Error: no callback set"); 
+               throw_exception("Error: no callback set");
                return -1;
         }
 
         self->_qh = nfq_create_queue(self->_h, queue_num, &swig_nfq_callback, (void*)self->_cb);
         /*printf("callback argument: %p\n",(void*)self->_cb);*/
         if (self->_qh == NULL) {
-               raise_swig_error("error during nfq_create_queue()"); 
+               throw_exception("error during nfq_create_queue()");
                return -1;
         }
         return 0;
@@ -69,7 +71,7 @@ int queue_fast_open(struct queue *self, int queue_num, int af_family)
         int ret;
 
         if (self->_cb == NULL) {
-               raise_swig_error("Error: no callback set"); 
+               throw_exception("Error: no callback set");
                return -1;
         }
 
@@ -100,7 +102,7 @@ int queue_set_queue_maxlen(struct queue *self, int maxlen)
         int ret;
         ret = nfq_set_queue_maxlen(self->_qh, maxlen);
         if (ret < 0) {
-                raise_swig_error("error during nfq_set_queue_maxlen()\n");
+                throw_exception("error during nfq_set_queue_maxlen()\n");
         }
         return ret;
 }
@@ -114,7 +116,7 @@ int queue_try_run(struct queue *self)
 
         printf("setting copy_packet mode\n");
         if (nfq_set_mode(self->_qh, NFQNL_COPY_PACKET, 0xffff) < 0) {
-                raise_swig_error("can't set packet_copy mode\n");
+                throw_exception("can't set packet_copy mode\n");
                 exit(1);
         }
 
