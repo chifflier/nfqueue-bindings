@@ -4,6 +4,8 @@
 #include <nfq.h>
 
 #include <nfq_common.h>
+
+#include <exception.h>
 %}
 
 %include exception.i
@@ -23,6 +25,15 @@
 
 
 %extend queue {
+
+%exception {
+        char *err;
+        clear_exception();
+        $action
+        if ((err = check_exception())) {
+                SWIG_exception(SWIG_RuntimeError, err);
+        }
+}
 
         int open();
         void close();
