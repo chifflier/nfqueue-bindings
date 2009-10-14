@@ -1,4 +1,4 @@
-SET(SOURCES ../nfq.c ../nfq_common.c ../nfq_utils.c)
+SET(SOURCES ../nfq.c ../nfq_common.c ../nfq_utils.c ../exception.c)
 
 SET(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}")
 FIND_PACKAGE(Perl)

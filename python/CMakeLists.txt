@@ -11,7 +11,7 @@ INCLUDE_DIRECTORIES(${CMAKE_SOURCE_DIR})
 INCLUDE_DIRECTORIES(${CMAKE_BINARY_DIR})
 INCLUDE_DIRECTORIES(${LIBNFQ_INCLUDE_DIR})
 
-SET(SOURCES ../nfq.c ../nfq_common.c ../nfq_utils.c)
+SET(SOURCES ../nfq.c ../nfq_common.c ../nfq_utils.c ../exception.c)
 SET(CMAKE_SWIG_FLAGS "")
 
 #SET_SOURCE_FILES_PROPERTIES(libnetfilter_queue.i PROPERTIES CPLUSPLUS ON)
