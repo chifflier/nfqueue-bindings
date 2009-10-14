@@ -13,11 +13,11 @@
 
 #if defined(SWIGPYTHON)
 
-%include libnetfilter_queue_python.i
+%include python/libnetfilter_queue_python.i
 
 #elif defined(SWIGPERL)
 
-%include libnetfilter_queue_perl.i
+%include perl/libnetfilter_queue_perl.i
 
 #endif
 

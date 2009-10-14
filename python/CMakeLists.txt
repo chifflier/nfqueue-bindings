@@ -16,7 +16,7 @@ SET(CMAKE_SWIG_FLAGS "")
 
 #SET_SOURCE_FILES_PROPERTIES(libnetfilter_queue.i PROPERTIES CPLUSPLUS ON)
 #SET_SOURCE_FILES_PROPERTIES(libnetfilter_queue.i PROPERTIES SWIG_FLAGS "-includeall")
-SWIG_ADD_MODULE(nfqueue python libnetfilter_queue.i ${SOURCES})
+SWIG_ADD_MODULE(nfqueue python ../libnetfilter_queue.i ${SOURCES})
 SWIG_LINK_LIBRARIES(nfqueue ${PYTHON_LIBRARIES} ${LIBNFQ_LINK_FLAGS})
 
 INSTALL(FILES ${CMAKE_CURRENT_BINARY_DIR}/nfqueue.py
