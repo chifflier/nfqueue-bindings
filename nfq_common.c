@@ -131,11 +131,27 @@ int queue_set_mode(struct queue *self, int mode)
         return 0;
 }
 
+int _process_loop(struct queue *self, int fd, int flags, int max_count)
+{
+        int rv;
+        char buf[65535];
+        int count;
+
+        count = 0;
+
+        while ((rv = recv(fd, buf, sizeof(buf), flags)) >= 0) {
+                nfq_handle_packet(self->_h, buf, rv);
+                count++;
+                if (max_count > 0 && count >= max_count) {
+                        break;
+                }
+        }
+        return count;
+}
+
 int queue_try_run(struct queue *self)
 {
         int fd;
-        int rv;
-        char buf[4096];
 
         if ((fd = queue_get_fd(self)) < 0) {
                 /* exception has been thrown by queue_get_fd */
@@ -147,12 +163,7 @@ int queue_try_run(struct queue *self)
 	        }
         }
 
-        while ((rv = recv(fd, buf, sizeof(buf), 0)) && rv >= 0) {
-                nfq_handle_packet(self->_h, buf, rv);
-        }
-
-        printf("exiting try_run\n");
-        return 0;
+        return _process_loop(self, fd, 0, -1);
 }
 
 int payload_get_nfmark(struct payload *self)
