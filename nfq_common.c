@@ -138,15 +138,9 @@ int queue_try_run(struct queue *self)
         if ((fd = queue_get_fd(self)) < 0) {
                 /* exception has been thrown by queue_get_fd */
                 return -1;
-        } else if (self->_qh == NULL) {
-                throw_exception("queue is not created");
+        } else if (queue_set_mode(self, NFQNL_COPY_PACKET) < 0) {
+                /* exception has been thrown by queue_set_mode */
                 return -1;
-        }
-
-        printf("setting copy_packet mode\n");
-        if (nfq_set_mode(self->_qh, NFQNL_COPY_PACKET, 0xffff) < 0) {
-                throw_exception("can't set packet_copy mode\n");
-                exit(1);
         }
 
         while ((rv = recv(fd, buf, sizeof(buf), 0)) && rv >= 0) {
