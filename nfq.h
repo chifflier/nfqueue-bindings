@@ -9,6 +9,7 @@ struct queue {
         struct nfq_handle *_h;
         struct nfq_q_handle *_qh;
         void *_cb;
+        int _mode_set;
 };
 
 struct payload {

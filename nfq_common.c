@@ -63,6 +63,7 @@ int queue_create_queue(struct queue *self, int queue_num)
                throw_exception("error during nfq_create_queue()");
                return -1;
         }
+        self->_mode_set = 0;
         return 0;
 }
 
@@ -126,6 +127,7 @@ int queue_set_mode(struct queue *self, int mode)
                 throw_exception("can't set queue mode");
                 return -1;
         }
+        self->_mode_set = 1;
         return 0;
 }
 
@@ -138,9 +140,11 @@ int queue_try_run(struct queue *self)
         if ((fd = queue_get_fd(self)) < 0) {
                 /* exception has been thrown by queue_get_fd */
                 return -1;
-        } else if (queue_set_mode(self, NFQNL_COPY_PACKET) < 0) {
-                /* exception has been thrown by queue_set_mode */
-                return -1;
+        } else if ((!self->_mode_set)) {
+	        if (queue_set_mode(self, NFQNL_COPY_PACKET) < 0) {
+                        /* exception has been thrown by queue_set_mode */
+                        return -1;
+	        }
         }
 
         while ((rv = recv(fd, buf, sizeof(buf), 0)) && rv >= 0) {
