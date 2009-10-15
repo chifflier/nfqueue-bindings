@@ -45,6 +45,7 @@
         int try_run();
         int get_fd();
         int set_mode(int);
+        int process_pending(int=0);
 };
 
 %extend payload {

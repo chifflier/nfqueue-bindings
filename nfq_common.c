@@ -1,6 +1,7 @@
 #include <arpa/inet.h>
 #include <linux/netfilter.h>
 #include <linux/ip.h>
+#include <linux/socket.h>
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -147,6 +148,21 @@ int _process_loop(struct queue *self, int fd, int flags, int max_count)
                 }
         }
         return count;
+}
+
+int queue_process_pending(struct queue *self, int max_count)
+{
+        int fd;
+        if ((fd = queue_get_fd(self)) < 0) {
+                /* exception has been thrown by queue_get_fd */
+                return -1;
+        } else if ((!self->_mode_set)) {
+	        if (queue_set_mode(self, NFQNL_COPY_PACKET) < 0) {
+                        /* exception has been thrown by queue_set_mode */
+                        return -1;
+	        }
+        }
+        return _process_loop(self, fd, MSG_DONTWAIT, max_count);
 }
 
 int queue_try_run(struct queue *self)
