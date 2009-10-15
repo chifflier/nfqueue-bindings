@@ -116,6 +116,19 @@ int queue_get_fd(struct queue *self)
         return nfq_fd(self->_h);
 }
 
+int queue_set_mode(struct queue *self, int mode)
+{
+        if (self->_qh == NULL) {
+                throw_exception("queue is not created");
+                return -1;
+        }
+        if (nfq_set_mode(self->_qh, mode, 0xffff) < 0) {
+                throw_exception("can't set queue mode");
+                return -1;
+        }
+        return 0;
+}
+
 int queue_try_run(struct queue *self)
 {
         int fd;

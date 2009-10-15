@@ -22,6 +22,8 @@ int queue_fast_open(struct queue *self, int queue_num, int af_family);
 
 int queue_get_fd(struct queue *self);
 
+int queue_set_mode(struct queue *self, int mode);
+
 int queue_try_run(struct queue *self);
 
 int payload_get_nfmark(struct payload *self);

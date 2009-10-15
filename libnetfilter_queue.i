@@ -44,6 +44,7 @@
         int set_queue_maxlen(int);
         int try_run();
         int get_fd();
+        int set_mode(int);
 };
 
 %extend payload {
