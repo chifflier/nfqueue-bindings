@@ -24,7 +24,6 @@ int  swig_nfq_callback(struct nfq_q_handle *qh, struct nfgenmsg *nfmsg,
 {
         int id = 0;
         struct nfqnl_msg_packet_hdr *ph;
-        int ret;
         char *payload_data;
         int payload_len;
         struct timeval tv1, tv2, diff;
@@ -39,8 +38,10 @@ int  swig_nfq_callback(struct nfq_q_handle *qh, struct nfgenmsg *nfmsg,
                 id = ntohl(ph->packet_id);
         }
 
-        ret = nfq_get_payload(nfad, &payload_data);
-        payload_len = ret;
+        if ((payload_len = nfq_get_payload(nfad, &payload_data)) < 0) {
+                fprintf(stderr, "Couldn't get payload\n");
+                return -1;
+        }
 
         gettimeofday(&tv1, NULL);
 
