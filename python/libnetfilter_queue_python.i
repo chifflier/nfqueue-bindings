@@ -22,7 +22,6 @@ int  swig_nfq_callback(struct nfq_q_handle *qh, struct nfgenmsg *nfmsg,
         struct nfqnl_msg_packet_hdr *ph;
         char *payload_data;
         int payload_len;
-        struct timeval tv1, tv2, diff;
 
         if (data == NULL) {
                 fprintf(stderr,"No callback set !\n");
@@ -38,8 +37,6 @@ int  swig_nfq_callback(struct nfq_q_handle *qh, struct nfgenmsg *nfmsg,
                 fprintf(stderr, "Couldn't get payload\n");
                 return -1;
         }
-
-        gettimeofday(&tv1, NULL);
 
         /*printf("callback called\n");
         printf("callback argument: %p\n",data);*/
@@ -74,13 +71,6 @@ int  swig_nfq_callback(struct nfq_q_handle *qh, struct nfgenmsg *nfmsg,
                 }
                 SWIG_PYTHON_THREAD_END_ALLOW;
         }
-
-        gettimeofday(&tv2, NULL);
-
-        timeval_subtract(&diff, &tv2, &tv1);
-        printf("python callback call: %d sec %d usec\n",
-                (int)diff.tv_sec,
-                (int)diff.tv_usec);
 
         return nfq_set_verdict(qh, id, NF_ACCEPT, 0, NULL);
 }
