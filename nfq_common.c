@@ -35,10 +35,12 @@ void queue_close(struct queue *self)
 
 int queue_bind(struct queue *self, int af_family)
 {
-        if (nfq_bind_pf(self->_h, af_family)) {
-                throw_exception("error during nfq_bind_pf()");
-                return -1;
-        }
+        /* Errors in nfq_bind_pf are non-fatal ...
+         * This function just tells the kernel that nfnetlink_queue is
+         * the chosen module to queue packets to userspace.
+         */
+        nfq_bind_pf(self->_h, af_family);
+
         return 0;
 }
 
