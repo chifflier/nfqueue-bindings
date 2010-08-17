@@ -46,7 +46,7 @@ int  swig_nfq_callback(struct nfq_q_handle *qh, struct nfgenmsg *nfmsg,
                 PyObject *result;
                 struct payload *p;
 
-                SWIG_PYTHON_THREAD_BEGIN_ALLOW;
+                /*SWIG_PYTHON_THREAD_BEGIN_ALLOW;*/
                 func = (PyObject *) data;
                 p = malloc(sizeof(struct payload));
                 p->data = payload_data;
@@ -66,7 +66,7 @@ int  swig_nfq_callback(struct nfq_q_handle *qh, struct nfgenmsg *nfmsg,
                         printf("callback failure !\n");
                         PyErr_Print();
                 }
-                SWIG_PYTHON_THREAD_END_ALLOW;
+                /*SWIG_PYTHON_THREAD_END_ALLOW;*/
         }
 
         return nfq_set_verdict(qh, id, NF_ACCEPT, 0, NULL);
