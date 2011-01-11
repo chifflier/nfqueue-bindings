@@ -15,19 +15,22 @@ import nfqueue
 sys.path.append('dpkt-1.6')
 from dpkt import ip
 
-def cb(i,payload):
-	print "python callback called !", i
+count = 0
 
-	print "payload len ", payload.get_length()
+def cb(payload):
+	global count
+
+	print "python callback called !"
+	count += 1
+
 	data = payload.get_data()
 	pkt = ip.IP(data)
-	print "proto:", pkt.p
-	print "source: %s" % inet_ntoa(pkt.src)
-	print "dest: %s" % inet_ntoa(pkt.dst)
 	if pkt.p == ip.IP_PROTO_TCP:
-	 	print "  sport: %s" % pkt.tcp.sport
-	 	print "  dport: %s" % pkt.tcp.dport
-        payload.set_verdict(nfqueue.NF_DROP)
+		print "  len %d proto %s src: %s:%s    dst %s:%s " % (payload.get_length(),pkt.p,inet_ntoa(pkt.src),pkt.tcp.sport,inet_ntoa(pkt.dst),pkt.tcp.dport)
+	else:
+		print "  len %d proto %s src: %s    dst %s " % (payload.get_length(),pkt.p,inet_ntoa(pkt.src),inet_ntoa(pkt.dst))
+
+	payload.set_verdict(nfqueue.NF_ACCEPT)
 
 	sys.stdout.flush()
 	return 1
@@ -38,7 +41,7 @@ print "open"
 q.open()
 
 print "bind"
-q.bind(AF_INET);
+q.bind(AF_INET)
 
 #print "setting callback (should fail, wrong arg type)"
 #try:
@@ -52,7 +55,7 @@ q.set_callback(cb)
 print "creating queue"
 q.create_queue(0)
 
-q.set_queue_maxlen(5000)
+q.set_queue_maxlen(50000)
 
 print "trying to run"
 try:
@@ -60,6 +63,7 @@ try:
 except KeyboardInterrupt, e:
 	print "interrupted"
 
+print "%d packets handled" % count
 
 print "unbind"
 q.unbind(AF_INET)
