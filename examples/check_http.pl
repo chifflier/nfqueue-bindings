@@ -82,21 +82,13 @@ sub cb
 
 $q = new nfqueue::queue();
 
-print "open\n";
-$q->open();
-print "bind\n";
-$q->bind(AF_INET);
-
 $SIG{INT} = "cleanup";
-
-#print "set callback, wrong argument type (should fail)\n";
-#$q->set_callback("blah");
 
 print "setting callback\n";
 $q->set_callback(\&cb);
 
-print "creating queue\n";
-$q->create_queue(0);
+print "open\n";
+$q->fast_open(0, AF_INET);
 
 print "trying to run\n";
 $q->try_run();

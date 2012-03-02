@@ -49,23 +49,11 @@ def cb(i,payload):
 
 q = nfqueue.queue()
 
-print "open"
-q.open()
-
-print "bind"
-q.bind(AF_INET);
-
-#print "setting callback (should fail, wrong arg type)"
-#try:
-#	q.set_callback("blah")
-#except TypeError, e:
-#	print "type failure (expected), continuing"
-
 print "setting callback"
 q.set_callback(cb)
 
-print "creating queue"
-q.create_queue(0)
+print "open"
+q.fast_open(0, AF_INET)
 
 print "trying to run"
 try:

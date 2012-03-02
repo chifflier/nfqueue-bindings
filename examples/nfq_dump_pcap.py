@@ -15,7 +15,8 @@ import nfqueue
 outputfile = None
 outputfilename = "dump.pcap"
 
-from scapy import Packet, PcapWriter, hexdump
+from scapy.packet import Packet
+from scapy.utils import PcapWriter, hexdump
 
 writer = None
 
@@ -33,19 +34,14 @@ def cb(i,payload):
 
 q = nfqueue.queue()
 
-q.open()
-
-q.unbind(AF_INET)
-if q.bind(AF_INET) != 0:
-    q.close()
-    raise RuntimeError("Could not bind to nfqueue")
-
 writer = PcapWriter(outputfilename)
 
 q.set_callback(cb)
 
-q.create_queue(0)
+print "open"
+q.fast_open(0, AF_INET)
 
+print "try_run"
 try:
     q.try_run()
 except KeyboardInterrupt, e:
