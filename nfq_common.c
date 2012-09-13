@@ -199,3 +199,13 @@ int payload_get_outdev(struct payload *self)
         return nfq_get_outdev(self->nfad);
 }
 
+int payload_get_physindev(struct payload *self)
+{
+        return nfq_get_physindev(self->nfad);
+}
+
+int payload_get_physoutdev(struct payload *self)
+{
+        return nfq_get_physoutdev(self->nfad);
+}
+

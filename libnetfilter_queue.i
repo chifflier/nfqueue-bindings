@@ -52,6 +52,8 @@
         int get_nfmark();
         int get_indev();
         int get_outdev();
+        int get_physindev();
+        int get_physoutdev();
 
 unsigned int get_length(void) {
         return self->len;

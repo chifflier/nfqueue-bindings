@@ -38,6 +38,10 @@ int payload_get_indev(struct payload *self);
 
 int payload_get_outdev(struct payload *self);
 
+int payload_get_physindev(struct payload *self);
+
+int payload_get_physoutdev(struct payload *self);
+
 #ifdef __cplusplus
 }
 #endif
