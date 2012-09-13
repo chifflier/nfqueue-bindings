@@ -1,6 +1,10 @@
 #ifndef __NFQ_COMMON__
 #define __NFQ_COMMON__
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 extern int  swig_nfq_callback(struct nfq_q_handle *qh, struct nfgenmsg *nfmsg,
                        struct nfq_data *nfad, void *data);
 
@@ -33,5 +37,9 @@ int payload_get_nfmark(struct payload *self);
 int payload_get_indev(struct payload *self);
 
 int payload_get_outdev(struct payload *self);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* __NFQ_COMMON__ */
