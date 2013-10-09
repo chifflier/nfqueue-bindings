@@ -1,6 +1,7 @@
 #ifndef __NFQ_H__
 #define __NFQ_H__
 
+#include <stdint.h>
 #include <libnetfilter_queue/libnetfilter_queue.h>
 
 struct queue {
