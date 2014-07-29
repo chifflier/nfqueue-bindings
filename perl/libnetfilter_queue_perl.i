@@ -24,7 +24,7 @@ int  swig_nfq_callback(struct nfq_q_handle *qh, struct nfgenmsg *nfmsg,
 {
         int id = 0;
         struct nfqnl_msg_packet_hdr *ph;
-        char *payload_data;
+        unsigned char *payload_data;
         int payload_len;
 
         if (data == NULL) {
