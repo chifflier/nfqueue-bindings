@@ -6,6 +6,8 @@
 #include <nfq_common.h>
 
 #include <exception.h>
+
+#include "config.h"
 %}
 
 %include exception.i
@@ -64,7 +66,11 @@ int set_verdict(int d) {
 }
 
 int set_verdict_mark(int d, int mark) {
+%#ifdef HAVE_NFQ_SET_VERDICT2
+        return nfq_set_verdict2(self->qh, self->id, d, htonl(mark), 0, NULL);
+%#else
         return nfq_set_verdict_mark(self->qh, self->id, d, htonl(mark), 0, NULL);
+%#endif
 }
 
 int set_verdict_modified(int d, char *new_payload, int new_len) {
@@ -72,7 +78,11 @@ int set_verdict_modified(int d, char *new_payload, int new_len) {
 }
 
 int set_verdict_mark_modified(int d, int mark, char *new_payload, int new_len) {
+%#ifdef HAVE_NFQ_SET_VERDICT2
+        return nfq_set_verdict2(self->qh, self->id, d, htonl(mark), new_len, new_payload);
+%#else
         return nfq_set_verdict_mark(self->qh, self->id, d, htonl(mark), new_len, new_payload);
+%#endif
 }
 
 };
