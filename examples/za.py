@@ -19,7 +19,7 @@ from dpkt import ip, tcp
 
 decisions = dict()
 
-def cb(i,payload):
+def cb(payload):
 	data = payload.get_data()
 	pkt = ip.IP(data)
 	print ""

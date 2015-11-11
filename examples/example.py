@@ -17,7 +17,7 @@ from dpkt import ip
 
 count = 0
 
-def cb(i, payload):
+def cb(payload):
 	global count
 
 	print "python callback called !"
