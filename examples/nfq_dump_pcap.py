@@ -20,7 +20,7 @@ from scapy.utils import PcapWriter, hexdump
 
 writer = None
 
-def cb(i,payload):
+def cb(payload):
     data = payload.get_data()
 
     # Add padding before packet

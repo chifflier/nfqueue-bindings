@@ -16,8 +16,8 @@ import nfqueue
 sys.path.append('dpkt-1.6')
 from dpkt import ip
 
-def cb(i,payload):
-  print "python callback called !", i
+def cb(payload):
+  print "python callback called !"
 
   print "payload len ", payload.get_length()
   data = payload.get_data()
