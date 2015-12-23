@@ -49,6 +49,10 @@ int  swig_nfq_callback(struct nfq_q_handle *qh, struct nfgenmsg *nfmsg,
                 /*SWIG_PYTHON_THREAD_BEGIN_ALLOW;*/
                 func = (PyObject *) data;
                 p = malloc(sizeof(struct payload));
+                if (!p) {
+                        fprintf(stderr, "callback malloc failure !\n");
+                        PyErr_Print();
+                }
                 p->data = payload_data;
                 p->len = payload_len;
                 p->id = id;
@@ -57,6 +61,7 @@ int  swig_nfq_callback(struct nfq_q_handle *qh, struct nfgenmsg *nfmsg,
                 payload_obj = SWIG_NewPointerObj((void*) p, SWIGTYPE_p_payload, 0 /* | SWIG_POINTER_OWN */);
                 arglist = Py_BuildValue("(N)",payload_obj);
                 result = PyEval_CallObject(func,arglist);
+                free(p);
                 Py_DECREF(arglist);
                 if (result) {
                         Py_DECREF(result);
