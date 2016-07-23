@@ -4,3 +4,6 @@ before_install:
   - sudo apt-get -qq update
   - sudo apt-get install -y pkg-config libnfnetlink-dev libnetfilter-queue-dev
   - sudo apt-get install -y cmake swig libperl-dev python-all-dev
+
+script:
+  - make && make test
