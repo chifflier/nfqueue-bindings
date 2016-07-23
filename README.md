@@ -1,5 +1,7 @@
 # nfqueue-bindings
 
+[![Build Status](https://travis-ci.org/chifflier/nfqueue-bindings.svg?branch=master)](https://travis-ci.org/chifflier/nfqueue-bindings)
+
 ## Overview
 
 nfqueue-bindings was written to provide an interface in high-level
@@ -31,3 +33,8 @@ Example of iptables rules::
 
 Of course, you should be more restrictive, depending on your needs.
 
+## Other languages
+
+Bindings for the Go languages are available in the
+[nfqueue-go](https://github.com/chifflier/nfqueue-go) project. They are not
+generated using Swig, so they are not part of this project.
