@@ -52,11 +52,6 @@
 
 %extend payload {
 
-        ~payload() {
-           nfq_set_verdict($self->qh, $self->id, NF_ACCEPT, 0, NULL);
-           free($self);
-        }
-
         int get_nfmark();
         int get_indev();
         int get_outdev();
