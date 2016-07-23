@@ -1,0 +1,9 @@
+nfqueue-bindings-0.6                                            2016-07-23
+  - Changes
+    - default verdict is not provided anymore, callback has to give one
+      This allows returning out-of-order verdicts (issue #2)
+    - removed the 'dummy' argument of callback
+  - Bugfixes
+    - fixed memory leaks in the payload object
+
+
