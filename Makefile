@@ -10,5 +10,7 @@ all:
 install: all
 	cd $(BUILD_DIR) && $(MAKE) install
 
+test:
+
 clean:
 	rm -rf $(BUILD_DIR)
