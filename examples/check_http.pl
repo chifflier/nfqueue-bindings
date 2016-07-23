@@ -45,7 +45,7 @@ sub _check_http
 
 sub cb
 {
-	my ($dummy,$payload) = @_;
+	my ($payload) = @_;
 
 	if ($payload) {
 		print "\n";

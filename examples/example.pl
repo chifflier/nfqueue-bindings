@@ -28,9 +28,8 @@ sub cleanup()
 
 sub cb()
 {
-	my ($dummy,$payload) = @_;
+	my ($payload) = @_;
 	print "Perl callback called!\n";
-	print "dummy is $dummy\n" if $dummy;
 	if ($payload) {
 		print "len: " . $payload->get_length() . "\n";
 

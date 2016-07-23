@@ -56,7 +56,6 @@ int  swig_nfq_callback(struct nfq_q_handle *qh, struct nfgenmsg *nfmsg,
 
                 PUSHMARK(SP) ;
 
-                XPUSHs(sv_2mortal(newSViv(42)));
                 p = malloc(sizeof(struct payload));
                 p->data = payload_data;
                 p->len = payload_len;
