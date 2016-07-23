@@ -64,19 +64,18 @@ int  swig_nfq_callback(struct nfq_q_handle *qh, struct nfgenmsg *nfmsg,
                 p->qh = qh;
                 p->nfad = nfad;
                 payload_obj = sv_newmortal();
-                SWIG_MakePtr(payload_obj, (void*) p, SWIGTYPE_p_payload, 0);
+                SWIG_MakePtr(payload_obj, (void*) p, SWIGTYPE_p_payload, SWIG_POINTER_OWN);
                 XPUSHs(payload_obj);
 
                 PUTBACK;
 
                 call_sv(func, G_DISCARD);
-                free(p);
 
                 FREETMPS ;
                 LEAVE ;
         }
 
-        return nfq_set_verdict(qh, id, NF_ACCEPT, 0, NULL);
+        return 0;
 }
 
 %}

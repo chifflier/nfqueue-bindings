@@ -58,10 +58,9 @@ int  swig_nfq_callback(struct nfq_q_handle *qh, struct nfgenmsg *nfmsg,
                 p->id = id;
                 p->qh = qh;
                 p->nfad = nfad;
-                payload_obj = SWIG_NewPointerObj((void*) p, SWIGTYPE_p_payload, 0 /* | SWIG_POINTER_OWN */);
+                payload_obj = SWIG_NewPointerObj((void*) p, SWIGTYPE_p_payload, SWIG_POINTER_OWN);
                 arglist = Py_BuildValue("(N)",payload_obj);
                 result = PyEval_CallObject(func,arglist);
-                free(p);
                 Py_DECREF(arglist);
                 if (result) {
                         Py_DECREF(result);
@@ -74,7 +73,7 @@ int  swig_nfq_callback(struct nfq_q_handle *qh, struct nfgenmsg *nfmsg,
                 /*SWIG_PYTHON_THREAD_END_ALLOW;*/
         }
 
-        return nfq_set_verdict(qh, id, NF_ACCEPT, 0, NULL);
+        return 0;
 }
 
 %}

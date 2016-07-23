@@ -47,7 +47,7 @@ sub cb()
 			print "TCP dst_port: $tcp_obj->{dest_port}\n";
 		}
 
-		$payload->set_verdict($nfqueue::NF_DROP);
+		$payload->set_verdict($nfqueue::NF_ACCEPT);
 	}
 }
 
