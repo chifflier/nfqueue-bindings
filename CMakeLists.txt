@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 2.6)
+cmake_minimum_required(VERSION 3.8)
 
 SET(VERSION "0.6")
 
@@ -14,6 +14,7 @@ ENDIF(COMMAND cmake_policy)
 
 FIND_PACKAGE(SWIG REQUIRED)
 INCLUDE(${SWIG_USE_FILE})
+set(UseSWIG_TARGET_NAME_PREFERENCE STANDARD)
 
 INCLUDE(FindPkgConfig)
 pkg_search_module(LIBNFQ "libnetfilter_queue")

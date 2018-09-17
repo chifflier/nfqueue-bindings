@@ -15,9 +15,12 @@ SET(SOURCES ../nfq.c ../nfq_common.c ../nfq_utils.c ../exception.c)
 SET(CMAKE_SWIG_FLAGS "")
 
 #SET_SOURCE_FILES_PROPERTIES(libnetfilter_queue.i PROPERTIES CPLUSPLUS ON)
-#SET_SOURCE_FILES_PROPERTIES(libnetfilter_queue.i PROPERTIES SWIG_FLAGS "-includeall")
-SWIG_ADD_MODULE(nfqueue python ../libnetfilter_queue.i ${SOURCES})
-SWIG_LINK_LIBRARIES(nfqueue ${PYTHON_LIBRARIES} ${LIBNFQ_LDFLAGS})
+SET_PROPERTY(SOURCE ../libnetfilter_queue.i PROPERTY SWIG_MODULE_NAME nfqueue)
+
+SWIG_ADD_LIBRARY(nfqueue-python LANGUAGE python SOURCES ../libnetfilter_queue.i ${SOURCES})
+SWIG_LINK_LIBRARIES(nfqueue-python ${PYTHON_LIBRARIES} ${LIBNFQ_LDFLAGS})
+
+set_target_properties(nfqueue-python PROPERTIES OUTPUT_NAME "nfqueue")
 
 INSTALL(FILES ${CMAKE_CURRENT_BINARY_DIR}/nfqueue.py
 	DESTINATION ${LIB_INSTALL_DIR}/python${PYTHON_VERSION}/dist-packages/)
